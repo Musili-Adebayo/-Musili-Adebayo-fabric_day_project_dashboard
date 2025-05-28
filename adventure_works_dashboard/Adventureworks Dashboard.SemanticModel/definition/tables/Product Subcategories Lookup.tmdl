@@ -34,7 +34,7 @@ table 'Product Subcategories Lookup'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\Rofiat Adebayo\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Product Subcategories Lookup.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Product Subcategories Lookup.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductSubcategoryKey", Int64.Type}, {"SubcategoryName", type text}, {"ProductCategoryKey", Int64.Type}})
 				in

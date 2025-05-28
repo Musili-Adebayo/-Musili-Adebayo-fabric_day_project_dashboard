@@ -197,7 +197,7 @@ table 'Calendar Lookup'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\Rofiat Adebayo\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Calendar Lookup.csv"),[Delimiter=",", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Calendar Lookup.csv"),[Delimiter=",", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}}),
 				    #"Inserted Day Name" = Table.AddColumn(#"Changed Type", "Day Name", each Date.DayOfWeekName([Date]), type text),

@@ -105,7 +105,7 @@ table 'Sales Data 2022'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\Rofiat Adebayo\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Sales Data 2022.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Sales Data 2022.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OrderDate", type date}, {"StockDate", type date}, {"OrderNumber", type text}, {"ProductKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"TerritoryKey", Int64.Type}, {"OrderLineItem", Int64.Type}, {"OrderQuantity", Int64.Type}})
 				in

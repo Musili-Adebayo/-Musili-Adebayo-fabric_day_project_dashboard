@@ -225,7 +225,7 @@ table 'Customer Lookup'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\Rofiat Adebayo\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Customer Lookup.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Customer Lookup.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerKey", Int64.Type}, {"Prefix", type text}, {"FirstName", type text}, {"LastName", type text}, {"BirthDate", type date}, {"MaritalStatus", type text}, {"Gender", type text}, {"EmailAddress", type text}, {"AnnualIncome", Int64.Type}, {"TotalChildren", Int64.Type}, {"EducationLevel", type text}, {"Occupation", type text}, {"HomeOwner", type text}}),
 				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"CustomerKey"}),
