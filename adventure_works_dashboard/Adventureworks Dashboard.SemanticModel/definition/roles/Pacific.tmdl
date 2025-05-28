@@ -1,0 +1,7 @@
+role Pacific
+	modelPermission: read
+
+	tablePermission 'Territory Lookup' = [Continent] == "Pacific"
+
+	annotation PBI_Id = d843d6a7abd8473da358343a101727e7
+

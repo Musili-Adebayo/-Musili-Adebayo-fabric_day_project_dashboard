@@ -1,0 +1,89 @@
+table 'Time Intelligence'
+	lineageTag: 73c91782-ef99-4765-8b72-ba85c100d53a
+
+	calculationGroup
+
+		calculationItem 'Current Measure' = SELECTEDMEASURE()
+
+		calculationItem 'Previous Month' = ```
+				
+				 CALCULATE(
+				    SELECTEDMEASURE(),
+				DATEADD(
+				    'Calendar Lookup'[Date],
+				    -1,
+				    MONTH)
+				 )
+				
+				```
+
+		calculationItem YTD = ```
+				
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATESYTD(
+				        'Calendar Lookup'[Date]))
+				    
+				```
+
+		calculationItem QTD =
+				
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATESQTD(
+				        'Calendar Lookup'[Date]))
+
+		calculationItem MoM = ```
+				
+				VAR CurrentValue=SELECTEDMEASURE()
+				VAR previousvalue=
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATEADD(
+				    'Calendar Lookup'[Date],
+				    -1,
+				    MONTH)
+				)
+				RETURN
+				CurrentValue-previousvalue
+				        
+				```
+
+		calculationItem MoM%Change = ```
+				
+				VAR currentvalue=SELECTEDMEASURE()
+				var previousvalue=
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATEADD(
+				        'Calendar Lookup'[Date],
+				        -1,
+				        MONTH)
+				)
+				VAR Diffvalue=currentvalue-previousvalue
+				RETURN
+				DIVIDE(
+				    Diffvalue,
+				    previousvalue
+				)
+				
+				```
+
+	column 'Calculation group column'
+		dataType: string
+		lineageTag: fa63deb2-d00e-439d-a318-455d05241539
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d6048b3-4c4b-440c-b140-c9a631d85c24
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

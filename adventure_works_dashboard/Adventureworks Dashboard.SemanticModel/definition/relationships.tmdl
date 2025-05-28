@@ -1,0 +1,66 @@
+relationship 78edbb61-32ad-4e74-91df-ce36d239f27c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Customer Lookup'.BirthDate
+	toColumn: LocalDateTable_be3b4975-b2f3-47b7-a5de-9c9daba4014e.Date
+
+relationship AutoDetected_7ba146bb-1c34-4f26-89f1-2c333dbc23ac
+	fromColumn: 'Product Lookup'.ProductSubcategoryKey
+	toColumn: 'Product Subcategories Lookup'.ProductSubcategoryKey
+
+relationship AutoDetected_56984ee8-7353-4bec-b729-979817370067
+	fromColumn: 'Product Subcategories Lookup'.ProductCategoryKey
+	toColumn: 'Product Categories Lookup'.ProductCategoryKey
+
+relationship c104f84b-effa-4712-8691-a7e47fc15d6b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Calendar Lookup'.Date
+	toColumn: LocalDateTable_40ba851a-94a5-45c1-aba8-1ec6baa1ac12.Date
+
+relationship 68c4bf56-cf37-4194-a480-0b381a19b09e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Calendar Lookup'.'Start of Month'
+	toColumn: LocalDateTable_7b861763-bea5-43ec-b46b-1ac15ebdb3eb.Date
+
+relationship 3db6df9e-8c08-4c24-881f-6b45831962bc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Calendar Lookup'.'Start of Quarter'
+	toColumn: LocalDateTable_40539c26-d0dd-4f58-af82-2f8729902ee9.Date
+
+relationship ab7d7c4a-7d24-4d54-811f-8fce40c910e2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Calendar Lookup'.'Start of Year'
+	toColumn: LocalDateTable_7de2b020-4a40-4389-aa8d-c898c575a4a4.Date
+
+relationship AutoDetected_9d5d4101-f205-452c-b544-e2d5b97c42db
+	fromColumn: 'Sales Data 2022'.ProductKey
+	toColumn: 'Product Lookup'.ProductKey
+
+relationship a8937799-746e-bd78-4ba7-942c87afa232
+	fromColumn: 'Sales Data 2022'.TerritoryKey
+	toColumn: 'Territory Lookup'.SalesTerritoryKey
+
+relationship b068bf0f-d0a9-661e-b747-a938983063cc
+	isActive: false
+	fromColumn: 'Sales Data 2022'.StockDate
+	toColumn: 'Calendar Lookup'.Date
+
+relationship 6ab13822-77f7-103a-09d0-82c86a33950a
+	fromColumn: 'Sales Data 2022'.CustomerKey
+	toColumn: 'Customer Lookup'.CustomerKey
+
+relationship 047b0913-ae0b-655f-0608-87dd6e500aeb
+	fromColumn: 'Sales Data 2022'.OrderDate
+	toColumn: 'Calendar Lookup'.Date
+
+relationship 4967f0be-dfd6-b531-6f99-389fd9bf2fd8
+	fromColumn: 'Returns Data'.TerritoryKey
+	toColumn: 'Territory Lookup'.SalesTerritoryKey
+
+relationship 9de0e11c-df17-f1fb-1b69-2fbc992baaac
+	fromColumn: 'Returns Data'.ReturnDate
+	toColumn: 'Calendar Lookup'.Date
+
+relationship d6bb43ee-cc21-88e1-833d-46503d05c13c
+	fromColumn: 'Returns Data'.ProductKey
+	toColumn: 'Product Lookup'.ProductKey
+

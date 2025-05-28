@@ -1,0 +1,99 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "a0398a6b5563ab58e942",
+  "position": {
+    "x": 150.58823529411765,
+    "y": 370.80328905755852,
+    "z": 1000,
+    "height": 299.55724225173941,
+    "width": 795.04111321948142,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calendar Lookup"
+                    }
+                  },
+                  "Property": "Start of Month"
+                }
+              },
+              "queryRef": "Calendar Lookup.Start of Month",
+              "nativeQueryRef": "Start of Month",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measure Table"
+                    }
+                  },
+                  "Property": "Previous Month Order"
+                }
+              },
+              "queryRef": "Measure Table.Previous Month Order",
+              "nativeQueryRef": "Previous Month Order"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measure Table"
+                    }
+                  },
+                  "Property": "Previous Month Profit"
+                }
+              },
+              "queryRef": "Measure Table.Previous Month Profit",
+              "nativeQueryRef": "Previous Month Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measure Table"
+                    }
+                  },
+                  "Property": "Previous Month Revenue"
+                }
+              },
+              "queryRef": "Measure Table.Previous Month Revenue",
+              "nativeQueryRef": "Previous Month Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measure Table"
+                    }
+                  },
+                  "Property": "10-Day Rolling Revenue"
+                }
+              },
+              "queryRef": "Measure Table.10-Day Rolling Revenue",
+              "nativeQueryRef": "10-Day Rolling Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

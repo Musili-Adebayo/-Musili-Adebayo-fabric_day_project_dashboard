@@ -1,0 +1,43 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-NG
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Territory Lookup","Product Lookup","Product Categories Lookup","Product Subcategories Lookup","Customer Lookup","Calendar Lookup","Sales Data 2022","Returns Data","Measure Table"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.143.878.0 (25.05)+b20aa3b866ec1b70879135a4e60e4b1301c75b21
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","CalcGroup","DevMode"]
+
+ref table 'Territory Lookup'
+ref table 'Product Lookup'
+ref table 'Product Categories Lookup'
+ref table 'Product Subcategories Lookup'
+ref table 'Customer Lookup'
+ref table DateTableTemplate_67101ffb-61d2-43f3-8bb1-ea7e5eae3cad
+ref table LocalDateTable_be3b4975-b2f3-47b7-a5de-9c9daba4014e
+ref table 'Calendar Lookup'
+ref table LocalDateTable_40ba851a-94a5-45c1-aba8-1ec6baa1ac12
+ref table LocalDateTable_7b861763-bea5-43ec-b46b-1ac15ebdb3eb
+ref table LocalDateTable_40539c26-d0dd-4f58-af82-2f8729902ee9
+ref table 'Sales Data 2022'
+ref table LocalDateTable_7de2b020-4a40-4389-aa8d-c898c575a4a4
+ref table 'Returns Data'
+ref table 'Measure Table'
+ref table 'Price Adjustment%'
+ref table 'Product Metric Selection'
+ref table 'Customer Metric Selection'
+ref table 'Time Intelligence'
+
+ref role Europe
+ref role 'North American'
+ref role Pacific
+
+ref cultureInfo en-US
+

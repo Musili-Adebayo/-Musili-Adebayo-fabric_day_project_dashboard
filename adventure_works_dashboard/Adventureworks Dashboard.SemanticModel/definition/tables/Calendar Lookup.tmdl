@@ -1,0 +1,217 @@
+table 'Calendar Lookup'
+	lineageTag: 5a8acdc4-5328-4132-b6c2-cbab557a6a6d
+
+	measure 'Weekend Orders' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    'Calendar Lookup'[Weekend] ="Weekend")
+		formatString: 0
+		lineageTag: a6190ca8-5cd0-4b85-8e30-7ed0fb2b53de
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 378eaec2-fec5-4cbf-aa1f-57dd1d1f9a20
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: c104f84b-effa-4712-8691-a7e47fc15d6b
+			defaultHierarchy: LocalDateTable_40ba851a-94a5-45c1-aba8-1ec6baa1ac12.'Date Hierarchy'
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: e27ee590-78f5-405e-ad9a-2f5697ba3fa8
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ',Start of Week'
+		dataType: string
+		lineageTag: dffd9a78-2379-4d4d-9037-d2028af3a899
+		summarizeBy: none
+		sourceColumn: ,Start of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Month'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f14b9ad6-f5e6-4dd7-9c8e-815724b68fe1
+		summarizeBy: none
+		sourceColumn: Start of Month
+
+		variation Variation
+			isDefault
+			relationship: 68c4bf56-cf37-4194-a480-0b381a19b09e
+			defaultHierarchy: LocalDateTable_7b861763-bea5-43ec-b46b-1ac15ebdb3eb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start of Quarter'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: dd83fe3f-4d98-400e-8f90-5ad678c2b12c
+		summarizeBy: none
+		sourceColumn: Start of Quarter
+
+		variation Variation
+			isDefault
+			relationship: 3db6df9e-8c08-4c24-881f-6b45831962bc
+			defaultHierarchy: LocalDateTable_40539c26-d0dd-4f58-af82-2f8729902ee9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: f5d3d56a-d34f-4471-9ea4-ae0c627bdea6
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 036cedf6-abfc-49e8-a9bd-56cd5fd8477e
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Year'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0d0a47ab-5390-49ce-b5ea-b1713a02189b
+		summarizeBy: none
+		sourceColumn: Start of Year
+
+		variation Variation
+			isDefault
+			relationship: ab7d7c4a-7d24-4d54-811f-8fce40c910e2
+			defaultHierarchy: LocalDateTable_7de2b020-4a40-4389-aa8d-c898c575a4a4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: bda68704-c993-4d9b-bdb2-ae278c406455
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number' =
+			
+			SWITCH(
+			    'Calendar Lookup'[Month Name],
+			    "January","1",
+			    "February","2",
+			    "March","3",
+			    "April","4",
+			    "May","5",
+			    "June","6",
+			    "July","7",
+			    "August","8",
+			    "September","9",
+			    "October","10",
+			    "November","11",
+			    "December","12"
+			)
+		lineageTag: de14e444-37fc-44ee-b2ba-4d4223d12cc6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short' =
+			
+			UPPER(
+			LEFT(
+			    'Calendar Lookup'[Month Name],
+			    3
+			))
+		lineageTag: 60ed60b5-20ab-4abb-a97e-0f5d56242109
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week' =
+			
+			WEEKDAY(
+			    'Calendar Lookup'[Date],
+			    2
+			)
+		formatString: 0
+		lineageTag: dff24ade-df14-439c-8707-42593a78dc8b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekend =
+			
+			IF(
+			    'Calendar Lookup'[Day of Week] IN {6,7},
+			    "Weekend",
+			    "Weekday"
+			)
+		lineageTag: bcff1a3b-3fa5-4985-9215-b8b460b28f22
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierachies'
+		lineageTag: b6edcc39-cc1a-4af6-9b4e-e9877f95f7b1
+
+		level 'Start of Year'
+			lineageTag: 12f0a740-3953-4e7c-8ee5-c6638958ea0a
+			column: 'Start of Year'
+
+		level 'Start of Month'
+			lineageTag: 316c53f8-ad33-40ad-9abd-146db1052294
+			column: 'Start of Month'
+
+		level ',Start of Week'
+			lineageTag: 319d31ed-0ba6-49b4-a6e7-277f05b339aa
+			column: ',Start of Week'
+
+		level Date
+			lineageTag: 80f85273-3ee6-4ba4-8ddb-eddb93885f95
+			column: Date
+
+	partition 'Calendar Lookup' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Rofiat Adebayo\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Calendar Lookup.csv"),[Delimiter=",", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}}),
+				    #"Inserted Day Name" = Table.AddColumn(#"Changed Type", "Day Name", each Date.DayOfWeekName([Date]), type text),
+				    #"Inserted Start of Week" = Table.AddColumn(#"Inserted Day Name", ",Start of Week", each Date.StartOfWeek([Date],Day.Monday)),
+				    #"Inserted Start of Month" = Table.AddColumn(#"Inserted Start of Week", "Start of Month", each Date.StartOfMonth([Date]), type date),
+				    #"Inserted Start of Quarter" = Table.AddColumn(#"Inserted Start of Month", "Start of Quarter", each Date.StartOfQuarter([Date]), type date),
+				    #"Inserted Month Name" = Table.AddColumn(#"Inserted Start of Quarter", "Month Name", each Date.MonthName([Date]), type text),
+				    #"Inserted Month" = Table.AddColumn(#"Inserted Month Name", "Month", each Date.Month([Date]), Int64.Type),
+				    #"Inserted Start of Year" = Table.AddColumn(#"Inserted Month", "Start of Year", each Date.StartOfYear([Date]), type date),
+				    #"Inserted Year" = Table.AddColumn(#"Inserted Start of Year", "Year", each Date.Year([Start of Year]), Int64.Type)
+				in
+				    #"Inserted Year"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,504 @@
+table 'Measure Table'
+	lineageTag: 26b28f1f-cc26-41ea-bcbc-1617d9a1fe3c
+
+	measure 'Quantity Sold' =
+			
+			sum(
+			    'Sales Data 2022'[OrderQuantity]
+			)
+		formatString: #,0
+		lineageTag: 5236f305-f672-433d-9bcc-4346a48b545a
+
+	measure 'Quantity Returned' = ```
+			
+			 sum(
+			    'Returns Data'[ReturnQuantity]
+			 )
+			```
+		formatString: #,0
+		lineageTag: f6a0d671-4fa4-4b90-bb0f-a6ff19104dbb
+
+	measure 'Average Retail Price' =
+			AVERAGE(
+			    'Product Lookup'[ProductPrice]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c2600677-4b6f-4ca3-a5ab-8947caf471de
+
+	measure 'Total Returns' =
+			
+			count(
+			    'Returns Data'[ReturnQuantity]
+			)
+		formatString: 0
+		lineageTag: 9c0b6a29-f763-464a-93f9-e4b284e9d61d
+
+	measure 'Total Orders' =
+			DISTINCTCOUNT(
+			    'Sales Data 2022'[OrderNumber])
+		lineageTag: ce94e405-12dc-45f9-8cba-c12b2bdc53c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Customers' = ```
+			
+			 DISTINCTCOUNT(
+			    'Sales Data 2022'[CustomerKey]
+			    )
+			```
+		formatString: 0
+		lineageTag: d52d69cf-2d12-41f7-90e4-eec1ddaf2410
+
+	measure 'Return Rate' = ```
+			
+			 DIVIDE(
+			 [Quantity Returned],
+			    [Quantity Sold],
+			    0)
+			```
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		lineageTag: 554104c8-f343-44e7-94c2-b2e10c28e7c2
+
+	measure 'Bulk Order' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    'Sales Data 2022'[OrderQuantity]>1)
+		formatString: #,0
+		lineageTag: 0504d7cf-43cf-4c6b-a1df-e2a2b4c0b232
+
+	measure 'Bike Return' =
+			
+			CALCULATE(
+			    [Total Returns],
+			    'Product Categories Lookup'[CategoryName]="Bikes"
+			)
+		formatString: 0
+		lineageTag: 771fd4fd-e2e1-494b-9209-fa31aaf5f16f
+
+	measure 'Bike Return Rate' = ```
+			
+			 CALCULATE(
+			    [Return Rate],
+			    'Product Categories Lookup'[CategoryName]="Bikes")
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 967c66f0-2aa2-4c89-8f43-f162fb66f500
+
+	measure 'Bikes Sold' =
+			
+			CALCULATE(
+			      [Quantity Sold],
+			      'Product Categories Lookup'[CategoryName]="Bikes")
+		formatString: 0
+		lineageTag: 8002d898-3717-473b-9727-769c88e8efdb
+
+	measure 'All Order' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    ALL(
+			        'Sales Data 2022'
+			    )
+			)
+		formatString: 0
+		lineageTag: c0ecfad5-46a9-489d-86ed-20c76bdd05cf
+
+	measure '% All Order' = ```
+			
+			 DIVIDE(
+			    [Total Orders],
+			    [All Order]
+			 )
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: fbeeb638-418b-4b63-956a-3188657dbb1e
+
+	measure 'Overall Average price' =
+			
+			CALCULATE(
+			    [Average Retail Price],
+			    ALL(
+			        'Product Lookup'
+			    )
+			)
+		formatString: "₦"#,0.###############;-"₦"#,0.###############;"₦"#,0.###############
+		lineageTag: cc2ccf5d-d5aa-4830-a68b-e19cd98e0c59
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Weekend Order' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    'Calendar Lookup'[Weekend]="Weekend")
+		formatString: 0
+		lineageTag: 33e5b96e-bc7c-47a6-96d2-11ff37a97af8
+
+	measure 'All Returns' = ```
+			
+			 CALCULATE(
+			    [Total Returns],
+			    ALL(
+			        'Returns Data'
+			    )
+			 )
+			```
+		formatString: 0
+		lineageTag: 004b2dde-e965-44d3-b3f4-544c6ae893f3
+
+	measure '% Return' =
+			
+			DIVIDE(
+			    [Total Returns],
+			    [All Returns]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ea31f44a-28e6-4828-9247-e0bae4b0c8b3
+
+	measure 'High Ticket Price' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    FILTER(
+			        'Product Lookup',
+			        'Product Lookup'[ProductPrice]> [Overall Average price]
+			    )
+			)
+		formatString: 0
+		lineageTag: 97c4d753-f8db-41d6-bfcb-edca793670f9
+
+	measure 'Total Revenue' =
+			
+			SUMX(
+			    'Sales Data 2022',
+			    'Sales Data 2022'[OrderQuantity]*
+			RELATED(
+			    'Product Lookup'[ProductPrice]
+			)
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: d9adb547-c665-486d-9239-ec6a9a636d64
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Per Customer' =
+			
+			DIVIDE(
+			    [Total Revenue],
+			    [Total Customers]
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: e610cd9c-83ee-416d-befd-7dd28ea5d2ec
+
+	measure 'Total Profit' =
+			
+			[Total Revenue]-[Total Cost]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: ab02b745-1d5f-45ec-ad04-5384d9908bef
+
+	measure 'Total Cost' =
+			
+			SUMX(
+			    'Sales Data 2022',
+			    'Sales Data 2022'[OrderQuantity]*
+			    RELATED(
+			        'Product Lookup'[ProductCost]
+			    )
+			)
+		formatString: "₦"#,0;-"₦"#,0;"₦"#,0
+		lineageTag: e9e760ae-56ef-4113-a969-92d5791d8943
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure YTD =
+			
+			CALCULATE(
+			    [Total Revenue],
+			    DATESYTD(
+			        'Calendar Lookup'[Date]
+			    )
+			)
+		formatString: "₦"#,0;-"₦"#,0;"₦"#,0
+		lineageTag: 6936bf02-1ac4-4855-82b8-c820a9bf446d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Previous Month Revenue' = ```
+			
+			CALCULATE(
+			    [Total Revenue],
+			    DATEADD(
+			        'Calendar Lookup'[Date],
+			        -1,
+			        MONTH
+			    )
+			)
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: a70f4dbd-61e5-4392-b7ad-6a4ef8c8fc80
+
+	measure 'Revenue Target' =
+			
+			[Previous Month Revenue]*1.1
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: a936d15c-1ae3-4e6e-a2a4-9078d1e5af33
+
+	measure '10-Day Rolling Revenue' = ```
+			
+			CALCULATE(
+			    [Total Revenue],
+			    DATESINPERIOD(
+			        'Calendar Lookup'[Date],
+			        MAX(
+			            'Calendar Lookup'[Date]
+			        ),-10,
+			        DAY
+			    )
+			)
+			
+			```
+		formatString: "₦"#,0;-"₦"#,0;"₦"#,0
+		lineageTag: 322ab1dd-8884-4833-81a4-c7630d98bac0
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Previous Month Returns' = ```
+			
+			 CALCULATE(
+			    [Total Returns],
+			    DATEADD(
+			        'Calendar Lookup'[Date],
+			        -1,
+			        MONTH
+			    )
+			 )
+			
+			```
+		formatString: #,0
+		lineageTag: e2c035c5-fdba-454d-823e-db60b95c85b4
+
+	measure 'Previous Month Order' = ```
+			
+			 CALCULATE(
+			    [Total Orders],
+			    DATEADD(
+			        'Calendar Lookup'[Date],
+			        -1,
+			        MONTH
+			    )
+			 )
+			
+			```
+		formatString: 0
+		lineageTag: 11bb456c-d5f2-4149-8771-442e730a7282
+
+	measure 'Previous Month Profit' = ```
+			
+			 CALCULATE(
+			    [Total Profit],
+			    DATEADD(
+			        'Calendar Lookup'[Date],
+			        -1,
+			        MONTH
+			    )
+			 )
+			```
+		formatString: "₦"#,0;-"₦"#,0;"₦"#,0
+		lineageTag: 9566e519-a2e7-4488-b377-c9bc96d2498b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Order Target' =
+			
+			[Previous Month Order]*1.1
+		lineageTag: 6c34beee-0b36-42b0-bf35-4b2c37ff7018
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit Target' =
+			
+			[Previous Month Profit]*1.1
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 51fb11a5-f080-4898-ae4f-0df0ea100ef4
+
+	measure '90-Day Rolling Profit' =
+			
+			CALCULATE(
+			    [Total Profit],
+			    DATESINPERIOD(
+			        'Calendar Lookup'[Date],
+			        MAX(
+			            'Calendar Lookup'[Date]
+			        ),-90,
+			        DAY
+			    )
+			)
+		formatString: "₦"#,0;-"₦"#,0;"₦"#,0
+		lineageTag: aff1c553-35e0-423c-b1a7-8f263fbf77cb
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Total Order(Customer Details)' =
+			
+			IF(
+			    HASONEVALUE(
+			        'Customer Lookup'[CustomerKey]),
+			        [Total Orders],
+			        "-"
+			)
+		formatString: 0
+		lineageTag: 39417230-0b19-4cc0-9336-6dd7c7cd9bda
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Total Revenue(Customer Details)' =
+			
+			IF(
+			    HASONEVALUE(
+			        'Customer Lookup'[CustomerKey]),
+			        [Total Revenue],
+			        "-"
+			)
+		lineageTag: 06f2796a-583d-4216-8e0c-d010cd6147ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Order Target Gap' = ```
+			
+			 [Total Orders]- [Order Target]
+			```
+		lineageTag: 35c31f29-3a26-4dbb-b67d-2b1aa9453ffc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue Target Gap' = ```
+			
+			 [Total Revenue]- [Revenue Target]
+			```
+		formatString: "₦"#,0.###############;-"₦"#,0.###############;"₦"#,0.###############
+		lineageTag: 4fe732c7-3803-4204-b044-9413f3c4dfde
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Profit Target Gap' = ```
+			
+			 [Total Profit]- [Profit Target]
+			```
+		formatString: "₦"#,0.###############;-"₦"#,0.###############;"₦"#,0.###############
+		lineageTag: 30c5895f-9c47-45bf-8bbd-db0ded111d40
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Adjustment price' = [Average Retail Price]*(1+'Price Adjustment%'[Price Adjustment% Value])
+		formatString: "₦"#,0.###############;-"₦"#,0.###############;"₦"#,0.###############
+		lineageTag: f5883d6f-f165-4c86-851c-407d083f3986
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Adjusted Revenue' =
+			
+			SUMX(
+			    'Sales Data 2022',
+			    'Sales Data 2022'[OrderQuantity]*
+			[Adjustment price])
+		formatString: "₦"#,0.###############;-"₦"#,0.###############;"₦"#,0.###############
+		lineageTag: 7f85d357-5580-4b0f-b337-65632cd52255
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Adjusted Profit' =
+			
+			[Adjusted Revenue]-[Total Cost]
+		formatString: "₦"#,0.###############;-"₦"#,0.###############;"₦"#,0.###############
+		lineageTag: 02e78a0f-3b50-4e6d-8dfe-5b15eabc0eb2
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-NG"}
+
+	measure 'Revenue Target Gap With Arrow' = ```
+			
+			VAR uparrow =UNICHAR(129129)
+			VAR downarrow =UNICHAR(129131)
+			VAR revenuegap=[Revenue Target Gap]
+			
+			RETURN
+			IF(revenuegap <0,
+			FORMAT(ROUND(revenuegap,0),"$#,###")&" "&downarrow,
+			FORMAT(ROUND(revenuegap,0),"$#,###")&" "&uparrow)
+			
+			```
+		lineageTag: 82c1e7a9-9b62-40f2-a4df-63756ce2a09c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue Sparkline' = ```
+			
+			// Static line color - use %23 instead of # for Firefox compatibility (Measure Derived from Eldersveld Modified by Kolosko)
+			VAR LineColour = "%23118DFF"
+			VAR PointColour = "white"
+			VAR Defs = "<defs>
+			    <linearGradient id='grad' x1='0' y1='25' x2='0' y2='50' gradientUnits='userSpaceOnUse'>
+			        <stop stop-color='#118DFF' offset='0' />
+			        <stop stop-color='#118DFF' offset='0.3' />
+			        <stop stop-color='white' offset='1' />
+			    </linearGradient>
+			</defs>"
+			// "Date" field used in this example along the X axis
+			VAR XMinDate = MIN('Calendar Lookup'[Start of Month])
+			VAR XMaxDate = MAX('Calendar Lookup'[Start of Month])
+			
+			// Obtain overall min and overall max measure values when evaluated for each date
+			VAR YMinValue = MINX(Values('Calendar Lookup'[Start of Month]),CALCULATE([Total Revenue]))
+			VAR YMaxValue = MAXX(Values('Calendar Lookup'[Start of Month]),CALCULATE([Total Revenue]))
+			
+			// Build table of X & Y coordinates and fit to 50 x 150 viewbox
+			VAR SparklineTable = ADDCOLUMNS(
+			    SUMMARIZE('Calendar Lookup','Calendar Lookup'[Start of Month]),
+			        "X",INT(150 * DIVIDE('Calendar Lookup'[Start of Month] - XMinDate, XMaxDate - XMinDate)),
+			        "Y",INT(50 * DIVIDE([Total Revenue] - YMinValue,YMaxValue - YMinValue)))
+			
+			// Concatenate X & Y coordinates to build the sparkline
+			VAR Lines = CONCATENATEX(SparklineTable,[X] & "," & 50-[Y]," ", 'Calendar Lookup'[Start of Month])
+			
+			// Last data points on the line
+			VAR LastSparkYValue = MAXX( FILTER(SparklineTable,'Calendar Lookup'[Start of Month] = XMaxDate), [Y])
+			VAR LastSparkXValue = MAXX( FILTER(SparklineTable, 'Calendar Lookup'[Start of Month] = XMaxDate), [X])
+			
+			// Add to SVG, and verify Data Category is set to Image URL for this measure
+			VAR SVGImageURL = 
+			    "data:image/svg+xml;utf8," & 
+			    --- gradient---
+			    "<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='-7 -7 164 64'>" & Defs & 
+			     "<polyline fill='url(#grad)' fill-opacity='0.3' stroke='transparent' 
+			      stroke-width='0' points=' 0 50 " & Lines & 
+			      " 150 150 Z '/>" &
+			    --- Lines---
+			    "<polyline 
+			        fill='transparent' stroke='" & LineColour & "' 
+			        stroke-linecap='round' stroke-linejoin='round' 
+			        stroke-width='3' points=' " & Lines & 
+			      " '/>" &
+			    --- Last Point---
+			        "<circle cx='"& LastSparkXValue & "' cy='" & 50 - LastSparkYValue & "' r='4' stroke='" & LineColour & "' stroke-width='3' fill='" & PointColour & "' />" &
+			        "</svg>"
+			RETURN SVGImageURL
+			
+			
+			```
+		lineageTag: f39ea4f6-ec66-4e94-a376-5753ab712bb7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Measure Table' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

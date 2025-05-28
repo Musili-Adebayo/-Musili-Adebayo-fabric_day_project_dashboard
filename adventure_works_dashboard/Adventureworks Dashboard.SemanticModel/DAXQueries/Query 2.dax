@@ -1,0 +1,15 @@
+DEFINE
+	VAR __SQDS0Core = 
+		SUMMARIZECOLUMNS(
+			'Product Subcategories Lookup'[SubcategoryName],
+			"Total_Orders", 'Measure Table'[Total Orders]
+		)
+
+	VAR __SQDS0BodyLimited = 
+		TOPN(1, __SQDS0Core, [Total_Orders], 0)
+
+EVALUATE
+	SUMMARIZECOLUMNS(
+		__SQDS0BodyLimited,
+		"MinSubcategoryName", IGNORE(CALCULATE(MIN('Product Subcategories Lookup'[SubcategoryName])))
+	)

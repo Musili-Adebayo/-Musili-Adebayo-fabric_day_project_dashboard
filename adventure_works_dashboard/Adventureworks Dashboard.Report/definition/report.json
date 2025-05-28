@@ -1,0 +1,173 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": "5.61",
+      "type": "SharedResources"
+    }
+  },
+  "layoutOptimization": "None",
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "AdventureWorks_Logo32673499092427405.png",
+          "path": "AdventureWorks_Logo32673499092427405.png",
+          "type": "Image"
+        },
+        {
+          "name": "Dashboard_Icon33570524039644134.png",
+          "path": "Dashboard_Icon33570524039644134.png",
+          "type": "Image"
+        },
+        {
+          "name": "Dashboard_Icon_Blue32500064357049796.png",
+          "path": "Dashboard_Icon_Blue32500064357049796.png",
+          "type": "Image"
+        },
+        {
+          "name": "Dashboard_Icon_Blue3575704996478837.png",
+          "path": "Dashboard_Icon_Blue3575704996478837.png",
+          "type": "Image"
+        },
+        {
+          "name": "Map_Icon7244397888932881.png",
+          "path": "Map_Icon7244397888932881.png",
+          "type": "Image"
+        },
+        {
+          "name": "Map_Icon_Blue4077403236448309.png",
+          "path": "Map_Icon_Blue4077403236448309.png",
+          "type": "Image"
+        },
+        {
+          "name": "Map_Icon_Blue818386894114896.png",
+          "path": "Map_Icon_Blue818386894114896.png",
+          "type": "Image"
+        },
+        {
+          "name": "Product_Icon43837025481584346.png",
+          "path": "Product_Icon43837025481584346.png",
+          "type": "Image"
+        },
+        {
+          "name": "Product_Icon_Blue35512597237138843.png",
+          "path": "Product_Icon_Blue35512597237138843.png",
+          "type": "Image"
+        },
+        {
+          "name": "Product_Icon_Blue5172185773374955.png",
+          "path": "Product_Icon_Blue5172185773374955.png",
+          "type": "Image"
+        },
+        {
+          "name": "Customer_Icon23415843533268643.png",
+          "path": "Customer_Icon23415843533268643.png",
+          "type": "Image"
+        },
+        {
+          "name": "Customer_Icon_Blue3595183736872687.png",
+          "path": "Customer_Icon_Blue3595183736872687.png",
+          "type": "Image"
+        },
+        {
+          "name": "Customer_Icon_Blue726444050380586.png",
+          "path": "Customer_Icon_Blue726444050380586.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon5137819580556582.png",
+          "path": "Filter_Icon5137819580556582.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon_Blue3446115886776546.png",
+          "path": "Filter_Icon_Blue3446115886776546.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon_Blue753992304287469.png",
+          "path": "Filter_Icon_Blue753992304287469.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon9053580560254306.png",
+          "path": "Filter_Icon9053580560254306.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon_Blue9152135957086458.png",
+          "path": "Filter_Icon_Blue9152135957086458.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon_Blue408039337208548.png",
+          "path": "Filter_Icon_Blue408039337208548.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}

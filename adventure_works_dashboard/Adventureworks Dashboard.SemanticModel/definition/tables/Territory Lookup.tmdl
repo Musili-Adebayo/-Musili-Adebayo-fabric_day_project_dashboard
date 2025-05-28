@@ -1,0 +1,68 @@
+table 'Territory Lookup'
+	lineageTag: a4fbe91b-423b-40ce-8d9f-27f10c66f408
+
+	column SalesTerritoryKey
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: f06e6d43-4553-4664-beb5-96d769271223
+		summarizeBy: none
+		sourceColumn: SalesTerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 7632d289-22de-4780-9eb4-9cf33d111d26
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 9cf3b94e-68ad-47bb-b8ab-a27a947b6899
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Continent
+		dataType: string
+		lineageTag: b2708215-a5a2-4646-ba09-6fb77724989d
+		dataCategory: Continent
+		summarizeBy: none
+		sourceColumn: Continent
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Territory hierachies'
+		lineageTag: 753d9d54-326e-45fc-bd28-644c68d96056
+
+		level Continent
+			lineageTag: 84285180-7e6d-4c6f-8704-59034cae4288
+			column: Continent
+
+		level Region
+			lineageTag: 457de4b8-9fb7-4b36-a326-5a23fd5e78b7
+			column: Region
+
+		level Country
+			lineageTag: bc2f209a-94cb-4894-b564-d359edc1b5a6
+			column: Country
+
+	partition 'Territory Lookup' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Rofiat Adebayo\Downloads\AdventureWorksRawData-230523-122034\AdventureWorks Raw Data\AdventureWorks Territory Lookup.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Continent", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
